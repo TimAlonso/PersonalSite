@@ -1,0 +1,8 @@
+ToDo List
+
+- Add a profile picture in the About section
+- Design the site so that the about section will be a long timeline that describe what I've done so far in web development. It will essentially be a LinkedIn profile but interactive (sort of).
+- Planning to remove the contact form and adding that into it's own separate page.
+- Looking at new potential technologies that I could integrate with the site but I want to keep it simple for now.
+- Design icons to use and replace the current icons.
+- Replace the images used in the site, it looks too dull at the moment.
