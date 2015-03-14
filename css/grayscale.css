@@ -434,7 +434,6 @@ body {
 
 .cd-timeline-img {
   position: absolute;
-  top: 0;
   left: 0;
   width: 40px;
   height: 40px;
@@ -507,6 +506,7 @@ body {
   display: inline-block;
 }
 .cd-timeline-content p {
+  color: #303e49; 
   margin: 1em 0;
   line-height: 1.6;
 }
@@ -609,3 +609,13 @@ body {
     animation: cd-bounce-2-inverse 0.6s;
   }
 }
+
+/*Updated Timeline CSS*/
+
+.timeline {
+    position: relative;
+    padding: 2em 0;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
