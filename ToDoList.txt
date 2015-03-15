@@ -5,3 +5,8 @@ ToDo List
 - Replace the images used in the site, it looks too dull at the moment.
 - Change the CSS of the timeline so that we can quickly distinguish between work, education and projects.
 - Change the CSS of the timeline so that we can use bullet points.
+- Implement the blog using Jekyll.
+- Fix the Javascript error on the timeline.
+- Update the images used in the timeline.
+- Spec out how the timeline can be extended.
+- Remove the Google Maps references in code.
