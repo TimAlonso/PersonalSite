@@ -9,4 +9,3 @@ ToDo List
 - Fix the Javascript error on the timeline.
 - Update the images used in the timeline.
 - Spec out how the timeline can be extended.
-- Remove the Google Maps references in code.
