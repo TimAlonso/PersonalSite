@@ -556,7 +556,7 @@ body {
   color: #303e49;
   text-align: left;
   font-size: 13px;
-  font-size: 0.9000rem;
+  font-size: 1rem;
 }
 .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
   font-size: 13px;
