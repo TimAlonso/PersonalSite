@@ -546,6 +546,11 @@ body {
 }
 .cd-timeline-content h2 {
   color: #303e49;
+  margin-bottom: 10px;
+}
+.cd-timeline-content h3 {
+  color: #303e49;
+  font-size: 10px;
 }
 .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
   font-size: 13px;
