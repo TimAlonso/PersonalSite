@@ -552,6 +552,12 @@ body {
   color: #303e49;
   font-size: 10px;
 }
+.cd-timeline-content ul {
+  color: #303e49;
+  text-align: left;
+  font-size: 13px;
+  font-size: 0.9000rem;
+}
 .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
   font-size: 13px;
   font-size: 0.8125rem;
@@ -563,6 +569,7 @@ body {
   color: #303e49; 
   margin: 1em 0;
   line-height: 1.6;
+  text-align: left;
 }
 .cd-timeline-content .cd-read-more {
   float: right;
