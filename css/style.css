@@ -351,7 +351,6 @@ body {
 
 #cd-timeline {
   position: relative;
-  padding: 2em 0;
   margin-top: 2em;
   margin-bottom: 2em;
 }
@@ -429,7 +428,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 4px white, inset 0 20px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
 }
 
 .cd-timeline-img img {
@@ -443,14 +442,14 @@ body {
   margin-top: -12px;
 }
 
-.cd-timeline-img.cd-picture {
-  background: #75ce66;
+.cd-timeline-img.cd-style-a {
+  background: #b44100;
 }
-.cd-timeline-img.cd-movie {
-  background: #c03b44;
+.cd-timeline-img.cd-style-b {
+  background: #fc762a;
 }
-.cd-timeline-img.cd-location {
-  background: #f0ca45;
+.cd-timeline-img.cd-style-c {
+  background: #ff9458;
 }
 @media only screen and (min-width: 1170px) {
   .cd-timeline-img {
