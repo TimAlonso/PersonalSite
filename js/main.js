@@ -52,3 +52,44 @@ jQuery(document).ready(function($){
         });
     });
 });
+
+// /* jQuery for Animated Floating Bubbles */
+
+jQuery.fn.verticalMarquee = function(verticalSpeed, horizontalSpeed, index) {
+    
+    this.css('float', 'left');
+
+    verticalSpeed = verticalSpeed || 1;
+    horizontalSpeed = 1 / horizontalSpeed || 1;
+
+    var windowHeight = this.parent().height();
+    var thisH = this.height();
+    var parentW = (this.parent().width() - this.width()) / 2;
+    var rand = Math.random() * (index * 1000);
+    var current = this;
+
+    this.css('margin-top', windowHeight + thisH);
+    this.parent().css('overflow', 'hidden');
+
+    setInterval(function() {
+        current.css({
+            marginTop: function(n, v) {
+                return parseFloat(v) - verticalSpeed;
+            },
+            marginLeft: function(n, v) {
+                return (Math.sin(new Date().getTime() / (horizontalSpeed * 1000) + rand) + 1) * parentW;
+            }
+        });
+    }, 15);
+
+    setInterval(function() {
+        if (parseFloat(current.css('margin-top')) < -thisH) {
+            current.css('margin-top', windowH + thisH);
+        }
+    }, 250);
+};
+var message = 1;
+$('.bubble').each(function(message) {  
+    $(this).verticalMarquee(1, 1, message);
+    message++
+});

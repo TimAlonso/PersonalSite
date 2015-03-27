@@ -7,3 +7,7 @@ ToDo List
 - Implement the blog using Jekyll.
 - Update the images used in the timeline.
 - Spec out how the timeline can be extended.
+
+- Add a boundary in graph.html
+- Integrate the graph.html with a RESTful API so that the content is much more immersive.
+- Fix canvas div so that it doesn't resize the bottom page.

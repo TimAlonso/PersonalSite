@@ -806,3 +806,34 @@ body {
   border-style: solid;
   border-width: 6px;
 }
+
+/* Style for Floating Bubbles */
+
+#canvas {
+  left: 0;
+  top: 0;
+  width: 400px;
+  height: 700px;
+}
+
+.bubble,.bubble-1 {
+  height: 120px;
+  width: 120px;
+  background-color: #b44100;
+  color: white;
+  z-indez: -9999;
+  line-height: 115px;
+  text-align: center;
+  font-weight: bold;
+
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  border-radius: 60px;
+}
+
+/*.bubble {
+  width: 50px;
+  height: 50px;
+  background-color: #b44100;
+  position: fixed;
+}*/
