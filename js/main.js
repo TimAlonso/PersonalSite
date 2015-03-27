@@ -62,13 +62,13 @@ jQuery.fn.verticalMarquee = function(verticalSpeed, horizontalSpeed, index) {
     verticalSpeed = verticalSpeed || 1;
     horizontalSpeed = 1 / horizontalSpeed || 1;
 
-    var windowHeight = this.parent().height();
+    var windowH = this.parent().height();
     var thisH = this.height();
     var parentW = (this.parent().width() - this.width()) / 2;
     var rand = Math.random() * (index * 1000);
     var current = this;
 
-    this.css('margin-top', windowHeight + thisH);
+    this.css('margin-top', windowH + thisH);
     this.parent().css('overflow', 'hidden');
 
     setInterval(function() {
