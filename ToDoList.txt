@@ -1,18 +1,23 @@
-ToDo List
+TODO LIST:
 
-- Looking at new potential technologies that I could integrate with the site but I want to keep it simple for now.
-- Design icons to use and replace the current icons.
-- Change the CSS of the timeline so that we can quickly distinguish between work, education and projects.
-- Change the CSS of the timeline so that we can use bullet points.
-- Implement the blog using Jekyll.
-- Update the images used in the timeline.
-- Spec out how the timeline can be extended.
+<!-- General -->
+
+- Looking at new potential technologies that I could integrate with the site such as Grunt, Less and Sass. Grunt to automate a lot of cleanup for me and Less and Sass to try these new CSS pre-compilers to write better CSS.
+- Update Grunt to add additional built tasks.
+- Study LESS and Sass and see if I could integrate that with the existing project.
+- Define a way to showcase small projects. Preferably, a page which lists all of the current project in place, the date in which it was started and the current project status.
+
+<!-- Jekyll Blog -->
+
+- Implement the Jekyll blog.
+
+<!-- Bubble Graph -->
 
 - Integrate the graph.html with a RESTful API so that the content is much more immersive. Specifically job related (i.e. skills in each job posting)
 - Find an appropriate API to use.
+- Animate each bubbles in place.
 
-- Implement the Jekyll blog.
-- Update Grunt to add additional built tasks.
-- Study LESS and Sass and see if I could integrate that with the existing project.
+<!-- Timeline -->
 
-- Define a way to showcase small projects. Preferably, a page which lists all of the current project in place, the date in which it was started and the current project status.
+- Spec out how the timeline can be extended.
+- Update the current timeline so that it allows for multiple branching (three branches like a different highway). Similar to the GitFlow cheatsheet so that the timeline is much more accurate. I volunteered for TEDxSalford during university for example not after it.
