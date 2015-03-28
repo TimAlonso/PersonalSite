@@ -1,42 +1,39 @@
-$(document).ready(function() {
+jQuery.fn.verticalMarquee = function(vertSpeed, horiSpeed, index) {
+   
+    this.css('float', 'left');
 
-    var $container = $('.bubble-container');
+    vertSpeed = vertSpeed || 1;
+    horiSpeed = 1/horiSpeed || 1;
 
-    for (var i = 0; i < 2; i++) {
-        $container.append('<div class="bubble"></div>');
-    }
+    var windowH = this.parent().height(),
+        thisH = this.height(),
+        parentW = (this.parent().width() - this.width()) / 2,
+        rand = Math.random() * (index * 1000),
+        current = this;
 
-    $('bubble-container').each(function() {
+    this.css('margin-top', windowH + thisH);
+    this.parent().css('overflow', 'hidden');
 
-        // Randomise the bubble positions (0 - 100%)
-        var randomPosition = Math.floor(Math.random() * 101);
-        
-        // Randomise the time they start rising (0-15s)
-        var randomDelay = Math.floor(Math.random() * 16);
-        
-        // Randomise their speed (3-8s)
-        var randomSpeed = 3 + Math.floor(Math.random() * 9);
-        
-        // Cache the this selector
-        var $this = $(this);
-        
-        // Apply the new styles
-        $this.css({
-          'left' : randomPosition + '%',
-          
-          '-webkit-animation-duration' : randomSpeed + 's',
-          '-moz-animation-duration' : randomSpeed + 's',
-          '-ms-animation-duration' : randomSpeed + 's',
-          'animation-duration' : randomSpeed + 's',
-          
-          '-webkit-animation-delay' : randomDelay + 's',
-          '-moz-animation-delay' : randomDelay + 's',
-          '-ms-animation-delay' : randomDelay + 's',
-          'animation-delay' : randomDelay + 's'
+    setInterval(function() {
+        current.css({
+            marginTop: function(n, v) {
+                return parseFloat(v) - vertSpeed;
+            },
+            marginLeft: function(n, v) {
+                return (Math.sin(new Date().getTime() / (horiSpeed * 1000) + rand) + 1) * parentW;
+            }
         });
+    }, 15);
 
-    });
+    setInterval(function() {
+        if (parseFloat(current.css('margin-top')) < -thisH) {
+            current.css('margin-top', windowH + thisH);
+        }
+    }, 250);
+};
 
-    animateBubbles();
-
+var bubbleIndex = 1;
+$('.bubble').each(function(bubbleIndex) {  
+    $(this).verticalMarquee(1, 1, bubbleIndex);
+    bubbleIndex++
 });
