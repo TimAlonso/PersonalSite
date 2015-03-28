@@ -53,43 +53,46 @@ jQuery(document).ready(function($){
     });
 });
 
-// /* jQuery for Animated Floating Bubbles */
+/* Randomly position bubbles inside container */
 
-jQuery.fn.verticalMarquee = function(verticalSpeed, horizontalSpeed, index) {
+var minXPos = 0;
+var maxXPos = 600;
+var minYPos = 0;
+var maxYPos = 200;
+var filledAreas = new Array();
+
+$('.bubble').each(function() {
+    var rand_x = 0;
+    var rand_y = 0;
+    var area;
+    do {
+        rand_x = Math.round(minXPos + ((maxXPos - minXPos)*(Math.random() % 1)));
+        rand_y = Math.round(minYPos + ((maxYPos - minYPos)*(Math.random() % 1)));
+        area = {x: rand_x, y: rand_y, width: $(this).width(), height: $(this).height()};
+    } while(check_overlap(area));
     
-    this.css('float', 'left');
-
-    verticalSpeed = verticalSpeed || 1;
-    horizontalSpeed = 1 / horizontalSpeed || 1;
-
-    var windowH = this.parent().height();
-    var thisH = this.height();
-    var parentW = (this.parent().width() - this.width()) / 2;
-    var rand = Math.random() * (index * 1000);
-    var current = this;
-
-    this.css('margin-top', windowH + thisH);
-    this.parent().css('overflow', 'hidden');
-
-    setInterval(function() {
-        current.css({
-            marginTop: function(n, v) {
-                return parseFloat(v) - verticalSpeed;
-            },
-            marginLeft: function(n, v) {
-                return (Math.sin(new Date().getTime() / (horizontalSpeed * 1000) + rand) + 1) * parentW;
-            }
-        });
-    }, 15);
-
-    setInterval(function() {
-        if (parseFloat(current.css('margin-top')) < -thisH) {
-            current.css('margin-top', windowH + thisH);
-        }
-    }, 250);
-};
-var message = 1;
-$('.bubble').each(function(message) {  
-    $(this).verticalMarquee(1, 1, message);
-    message++
+    filledAreas.push(area);
+    
+    $(this).css({left:rand_x, top: rand_y});
 });
+
+function check_overlap(area) {
+    for (var i = 0; i < filledAreas.length; i++) {
+        
+        check_area = filledAreas[i];
+        
+        var bottom1 = area.y + area.height;
+        var bottom2 = check_area.y + check_area.height;
+        var top1 = area.y;
+        var top2 = check_area.y;
+        var left1 = area.x;
+        var left2 = check_area.x;
+        var right1 = area.x + area.width;
+        var right2 = check_area.x + check_area.width;
+        if (bottom1 < top2 || top1 > bottom2 || right1 < left2 || left1 > right2) {
+            continue;
+        }
+        return true;
+    }
+    return false;
+}
