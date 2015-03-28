@@ -814,18 +814,27 @@ body {
   top: 0;
   width: 400px;
   height: 100%;
+  position: relative;
 }
 
 .bubble {
+  position: absolute;
   height: 120px;
   width: 120px;
   background-color: #b44100;
   color: white;
-  z-index: -9999;
   line-height: 115px;
-  text-align: center;
 
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
   border-radius: 60px;
+}
+
+/* Push the footer to the bottom of the page */
+
+.footer {
+  position: relative;
+  margin-top: 300px; /* negative value of footer height */
+  height: 150px;
+  clear: both;
 }

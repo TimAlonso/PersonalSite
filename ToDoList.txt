@@ -18,7 +18,7 @@ TODO LIST:
 - Find an appropriate API to use.
 - Update Javascript so that we can dynamically append each bubbles straight into the container as opposed to defining them manually.
 - Update Javascript to modify the size of the bubbles depending on the data received (i.e. Most popular skills will be bigger bubbles)
-- Fix: jQuery animation flicker.
+- Animate each bubble on hover.
 
 <!-- Timeline -->
 
