@@ -3,16 +3,12 @@
   "description": "The JavaScript Task Runner",
   "version": "0.4.5",
   "author": {
-    "name": "\"Cowboy\" Ben Alman",
-    "url": "http://benalman.com/"
+    "name": "Tim Alonso",
+    "url": "http://timalonso.co.uk/"
   },
-  "homepage": "http://gruntjs.com/",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/gruntjs/grunt.git"
-  },
-  "bugs": {
-    "url": "http://github.com/gruntjs/grunt/issues"
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/timalonso/timalonso.github.io.git"
   },
   "licenses": [
     {
@@ -72,6 +68,7 @@
     "difflet": "~0.2.3",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-uglify": "^0.8.1",
     "grunt-contrib-watch": "~0.5.3",
     "semver": "2.1.0",
     "shelljs": "~0.2.5",
