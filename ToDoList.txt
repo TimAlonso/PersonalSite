@@ -2,9 +2,7 @@ TODO LIST:
 
 <!-- General -->
 
-- Looking at new potential technologies that I could integrate with the site such as Grunt, Less and Sass. Grunt to automate a lot of cleanup for me and Less and Sass to try these new CSS pre-compilers to write better CSS.
 - Update Grunt to add additional built tasks.
-- Study LESS and Sass and see if I could integrate that with the existing project.
 - Define a way to showcase small projects. Preferably, a page which lists all of the current project in place, the date in which it was started and the current project status.
 - Update the favicon.
 
@@ -14,13 +12,11 @@ TODO LIST:
 
 <!-- Bubble Graph -->
 
-- Integrate the graph.html with a RESTful API so that the content is much more immersive. Specifically job related (i.e. skills in each job posting)
-- Find an appropriate API to use.
+- Integrate the graph.html with a RESTful API so that the content is much more immersive. Use Trendy Skills API.
 - Update Javascript so that we can dynamically append each bubbles straight into the container as opposed to defining them manually.
 - Update Javascript to modify the size of the bubbles depending on the data received (i.e. Most popular skills will be bigger bubbles)
 - Animate each bubble on hover.
 
 <!-- Timeline -->
 
-- Spec out how the timeline can be extended.
 - Update the current timeline so that it allows for multiple branching (three branches like a different highway). Similar to the GitFlow cheatsheet so that the timeline is much more accurate. I volunteered for TEDxSalford during university for example not after it.
