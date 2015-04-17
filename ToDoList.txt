@@ -2,13 +2,14 @@ TODO LIST:
 
 <!-- General -->
 
-- Update Grunt to add additional built tasks.
 - Define a way to showcase small projects. Preferably, a page which lists all of the current project in place, the date in which it was started and the current project status.
 - Update the favicon.
 
 <!-- Jekyll Blog -->
 
 - Implement the Jekyll blog.
+- Update the style of the blog to use site default style (using SASS)
+- Update Grunt to minify CSS and Scripts.
 
 <!-- Bubble Graph -->
 
