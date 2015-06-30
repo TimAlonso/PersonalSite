@@ -6,9 +6,9 @@
     "name": "Tim Alonso",
     "url": "http://timalonso.co.uk/"
   },
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/timalonso/timalonso.github.io.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timalonso/timalonso.github.io.git"
   },
   "licenses": [
     {
@@ -66,6 +66,7 @@
   },
   "devDependencies": {
     "difflet": "~0.2.3",
+    "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-nodeunit": "~0.2.0",
     "grunt-contrib-uglify": "^0.8.1",
