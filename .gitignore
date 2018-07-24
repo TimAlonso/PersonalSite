@@ -1,14 +1,3 @@
-test.txt
-
-# logs
-*.log
-
-# installed dependencies
-node_modules
-
-# generated components
-dist
-
 .sass-cache/
 _site/
 vendor
