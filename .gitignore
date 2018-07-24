@@ -8,3 +8,7 @@ node_modules
 
 # generated components
 dist
+
+.sass-cache/
+_site/
+vendor
