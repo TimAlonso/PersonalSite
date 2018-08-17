@@ -97,6 +97,6 @@ This is paired with a Razor view:
 
 {% endhighlight %}
 
-Instructions on how this is configured in Sitecore can be found in Sitecore’s documentation here.
+Instructions on how this is configured in Sitecore can be found in Sitecore’s documentation [here](https://doc.sitecore.net/web_forms_for_marketers/81/working_with_actions_and_validations/fields/create_a_custom_field_type).
 
 The result is a hidden field which includes the form’s name in the submission.
