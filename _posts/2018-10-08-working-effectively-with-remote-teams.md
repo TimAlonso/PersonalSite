@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Working Effecively with Remote Teams"
-date: 2018-10-10 20:00:00 +0100
+date: 2018-10-08 20:00:00 +0100
 author: "Tim Alonso"
 ---
 
