@@ -5,6 +5,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://timalonso.co.uk"
 twitter_username: TimAlonso
 markdown: kramdown
+show_drafts: false
 remote_theme: chesterhow/tale
 permalink:    /:year-:month-:day/:title
 paginate:     5
