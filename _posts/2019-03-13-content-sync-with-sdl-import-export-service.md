@@ -1,38 +1,29 @@
 ---
 layout: post
-title: "Automating SDL Web 8.5 Content Sync"
+title: "Content Syncing using SDL's Import and Export Service"
 date: 2019-03-13 20:00:00 +0100
 author: "Tim Alonso"
 ---
 
-## Notes
+I am working with the client that have 3 environments; Dev, Test and Staging/Production.
 
-- one-off
-    - the approach considers from this point onwards. will require a one off sync for the entire content management instance.
-- deployment
-    - notes on how to deploy across environments
-- issues/challenges
-    - notes on issues and challenges encountered
+One area identified for improvement is that Dev and Test CME lack content to easily replicate issues from Production. This results in developers from having to manually recreate content or content port from Production.
 
-## Introduction
+We'd like to know if it's possible to authomate content sync from Production to Test without manually porting content or back-sync Production's database.
 
-The goal is to create a solution to automate syncing content from Production downstream to Test and Dev environments in order to get fresh set of data to test against.
+The ideal scenario is that content is automatically synced in a pre-determine schedule from Production to Test.
 
 ## Approach
 
-There are 3 steps needed:
+The fundamental idea is two-folds, to use SDL's Import Export Service for generating packages to export and uploading said packages to the server for importing.
 
-1. Gather via Event System Code
-2. Export via Export Service
-3. Import via Import Service
-
-There is also a potential prerequisite step which require to do a full, one-off sync.
+The second part would be to track future updates into a bundle, to be then exported automatically from one content manager instance and imported automatically to another via a console app.
 
 ## Gather
 
-This is based on work done by Chris Eccles from Dept.
+This is based on work done by Chris Eccles from Dept. This is using the Event System code to track when an item is checked in, an item is saved, a keyword is saved and an item is localized. These items are then added to bundles within their current publication.
 
-```
+```c#
 [TcmExtension("Content Sync")]
 public class ContentSyncEvents : TcmExtension
 {
@@ -140,9 +131,11 @@ public class ContentSyncEvents : TcmExtension
 
 ## Export
 
+This will be a console app using SDL's Import and Export Service. The idea would be to export the specified bundle.
+
 Instantiate the client and test connection:
 
-```
+```c#
 var client = new ImportExportServiceClient();
 
 var status = client.TestConnection();
@@ -151,7 +144,7 @@ Console.WriteLine(status);
 
 Define items for selection and export instructions. Then initiate export:
 
-```
+```c#
 var selections = new Selection[]
 {
     new ItemsSelection
@@ -174,7 +167,7 @@ var processId = client.StartExport(selections, instructions);
 ```
 
 Get process state and poll server until state is `Finished`
-```
+```c#
 var processState = client.GetProcessState(processId);
 while (processState.HasValue && processState == ProcessState.Running)
 {
@@ -184,7 +177,7 @@ while (processState.HasValue && processState == ProcessState.Running)
 ```
 
 Download package
-```
+```c#
 var downloadClient = new ImportExportStreamDownloadClient();
 using (var stream = downloadClient.DownloadPackage(processId, true))
 {
@@ -198,20 +191,23 @@ using (var stream = downloadClient.DownloadPackage(processId, true))
 
 ## Import
 
-Instantiate the client and test connection:
+Using the Import Service, we instantiate the client and test connection:
 
-```
+```c#
 var client = new ImportExportServiceClient();
 
 var status = client.TestConnection();
 Console.WriteLine(status);
 ```
 
-Pass package name and define import instructions
-
+Then upload the exported package to the content management server
+```c#
+var fileName = _uploadClient.UploadPackage(File.ReadAllButes(@"C:\Example\Example-Package.zip"));
 ```
-var packageName = "Example.zip";
 
+Pass the temporary file name of where the zip file was uploaded and define import instructions
+
+```c#
 var instructions = new ImportInstruction
 {
     CreateUndoPackage = true,
@@ -221,16 +217,33 @@ var instructions = new ImportInstruction
     LogLevel = LogLevel.Debug
 };
 
-var processId = client.StartImport(packageName, instructions);
+var processId = _client.StartImport(fileName, instructions);
+var processState = _client.GetProcessState(processId);
 ```
 
-## One-Off
+Handle if the process is aborted:
+```c#
+if (processState.HasValue && processState == ProcessState.Aborted)
+{
+    using (var stream = _downloadClient.DownloadProcessLogFile(processId, true))
+    {
+        using (var fileStream = File.Create(@"C:\Example\Example.log"))
+        {
+            stream.CopyTo(fileStream);
+        }
+    }
+}
+```
 
-Implementation detail of how to capture CME's content snapshot.
-
-## Deployment
-
-Instruction for deploying different components.
+Poll the process state until import is done:
+```c#
+while (processState.HasValue && processState == ProcessState.Running)
+{
+    Console.WriteLine("Waiting...");
+    Thread.Sleep(30000);
+    processState = _client.GetProcessState(processId);
+}
+```
 
 ## Issues & Challenges
 
@@ -238,7 +251,7 @@ Instruction for deploying different components.
 
 I've got a simple script for exporting 1 bundle from a Test CME and it's returning a process ID. 
 
-I looked at the documentation (Core Service,  `Tridion.ContentManager.ImportExport.Service.IImportExportService201601`) and found no clear information of what I can do with this process ID except pass it to other method for retrieving process info. 
+I looked at the documentation (Core Service, `Tridion.ContentManager.ImportExport.Service.IImportExportService201601`) and found no clear information of what I can do with this process ID except pass it to other method for retrieving process info. 
 
 The expectation was a package to be generated similar to that used by Content Porter.
 
@@ -260,21 +273,55 @@ It turns out that to download the package, I must use a different interface:
 
 One requirement is to import generated package into the appropriate CME. In order to import to Test and Dev (as we will be generating packages from Production), we need to dynamically switch the WCF service to the appropriate instance to import correctly.
 
-There are 2 options:
+This can be achieve by configuring access to the WCF service by code:
 
-#### 1. Define Naming Scheme
+```c#
+public static IImportExportService Create()
+{
+    string hostname = ConfigurationManager.AppSettings["ImportExportService.Host"];
+    string username = ConfigurationManager.AppSettings["ImportExportService.Username"];
+    string password = ConfigurationManager.AppSettings["ImportExportService.Password"];
+    string endpointPath = ConfigurationManager.AppSettings["ImportExportService.Endpoint"];
 
+    var binding = new BasicHttpBinding
+    {
+        MaxBufferSize = 4194304,
+        MaxBufferPoolSize = 4194304,
+        MaxReceivedMessageSize = 4194304,
+        ReaderQuotas = new XmlDictionaryReaderQuotas
+        {
+            MaxStringContentLength = 4194304,
+            MaxArrayLength = 4194304
+        },
+        Security = new BasicHttpSecurity
+        {
+            Mode = BasicHttpSecurityMode.Transport,
+            Transport = new HttpTransportSecurity
+            {
+                ClientCredentialType = HttpClientCredentialType.Basic
+            }
+        }
+    };
+
+    hostname = string.Format("{0}{1}{2}", hostname.StartsWith("http") ? "" : "http://", hostname, hostname.EndsWith("/") ? "" : "/");
+    var endpoint = new EndpointAddress(hostname + endpointPath);
+    var factory = new ChannelFactory<IImportExportService>(binding, endpoint);
+
+    if (factory.Credentials != null)
+    {
+        factory.Credentials.Windows.ClientCredential = new NetworkCredential(username, password);
+    }
+    else
+    {
+        throw new ApplicationException("Tridion channel has failed to authenticate. Please ensure the configuration is correct.");
+    }
+
+    return factory.CreateChannel();
+}
 ```
-<bindings>
-    <binding name="Default_DEV">
-        ...
-    </binding>
-    <binding name="Default_PROD">
-        ...
-    </binding>
-</bindings>
+
+Then parse the console app's arguments:
+
+```bash
+ContentSync.exe --action import --target dev
 ```
-
-#### 2. External Configuration Store
-
-Don't use config files. Define everything in code and load configuration from a database.
