@@ -4,8 +4,7 @@ This repo holds my personal site.
 
 ### Prerequisites
 
-1. [Ruby development environment](https://jekyllrb.com/docs/installation/windows/#installation-via-bash-on-windows-10)
-2. Jekyll and [bundler](https://jekyllrb.com/docs/ruby-101/#bundler) gems
+1. [Docker and Docker-Compose](https://www.docker.com/get-started)
 3. Visual Studio Code
 
 ### Local
@@ -15,13 +14,15 @@ Clone repo
 git clone git@github.com:TimAlonso/timalonso.github.io.git
 cd timalonso.github.io
 ```
+
 > Note: Open the directory and in Visual Studio Code terminal, enter `bash`
 
-Build the site and make it available on a local server
+Run Docker-Compose
 ```
-bundle exec jekyll serve
+docker-compose up
 ```
-The site should now be available on `http://127.0.0.1:4000`
+
+The site should now be loclaly available on `http://0.0.0.0:4000/`
 
 #### Drafts
 
